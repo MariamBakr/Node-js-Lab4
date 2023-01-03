@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mini chat app</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- <script src="./node_modules/socket.io/dist/socket.js"></script> -->
+</head>
+<body>
+    <h1>Type message...</h1>
+    <input type="text" name="" id="msg">    
+    <button onclick="save()">Send</button>
+
+    
+    <script>
+    let client=io()
+    function save()
+    {
+        let val=document.getElementById("msg").value;
+        client.emit("sendmsg",val);
+    }
+
+    client.on('msg',function(data)
+    {
+        let h2=document.createElement("h2");
+        h2.innerText=data;
+        document.body.appendChild(h2);
+
+    })
+    
+    </script>
+
+</body>
+
+</html>
